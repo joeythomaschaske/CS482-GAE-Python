@@ -15,6 +15,8 @@
 # limitations under the License.
 #
 import webapp2
+import os
+import jinja2
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -23,3 +25,5 @@ class MainHandler(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
 ], debug=True)
+
+

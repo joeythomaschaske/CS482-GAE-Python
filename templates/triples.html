@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pythagorean Triples</title>
+</head>
+<body>
+<table>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    {% for triple in allTriples %}
+        <p>triple</p>
+        <tr>
+            {% for val in triple %}
+                <td>val</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

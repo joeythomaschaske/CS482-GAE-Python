@@ -17,6 +17,7 @@
 import webapp2
 import os
 import jinja2
+import json
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/templates"),
@@ -33,13 +34,13 @@ class ComputeTriples(webapp2.RequestHandler):
         allTriples = []
         c = int(self.request.get('c'))
         print('c: ' + str(c))
-        for i in range(1, c):
-            for j in range(1, c):
-                for k in range(1, c):
+        for i in range(0, c + 1):
+            for j in range(0, c + 1):
+                for k in range(0, c + 1):
                     i2 = i*i
                     j2 = j*j
                     k2 = k*k
-                    if ((i2 + j2) == k2) and (i < j):
+                    if ((i2 + j2) == k2) and (i <= j) and (i > 0) and (j > 0) and (k > 0):
                         singleTriple = []
                         singleTriple.append(i)
                         singleTriple.append(j)
@@ -48,7 +49,6 @@ class ComputeTriples(webapp2.RequestHandler):
         d = {
             'allTriples' : allTriples,
         }
-        print(allTriples)
         template = JINJA_ENVIRONMENT.get_template('triples.html')
         self.response.out.write(template.render(d))
 

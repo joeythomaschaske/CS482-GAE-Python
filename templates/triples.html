@@ -10,10 +10,9 @@
     <th>B</th>
     <th>C</th>
     {% for triple in allTriples %}
-        <p>triple</p>
         <tr>
             {% for val in triple %}
-                <td>val</td>
+                <td>{{ val }}</td>
             {% endfor %}
         </tr>
     {% endfor %}

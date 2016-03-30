@@ -18,12 +18,43 @@ import webapp2
 import os
 import jinja2
 
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + "/templates"),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        template = JINJA_ENVIRONMENT.get_template('index.html')
+        self.response.out.write(template.render())
+
+class ComputeTriples(webapp2.RequestHandler):
+    def post(self):
+        allTriples = []
+        c = int(self.request.get('c'))
+        print('c: ' + str(c))
+        for i in range(1, c):
+            for j in range(1, c):
+                for k in range(1, c):
+                    i2 = i*i
+                    j2 = j*j
+                    k2 = k*k
+                    if ((i2 + j2) == k2) and (i < j):
+                        singleTriple = []
+                        singleTriple.append(i)
+                        singleTriple.append(j)
+                        singleTriple.append(k)
+                        allTriples.append(singleTriple)
+        d = {
+            'allTriples' : allTriples,
+        }
+        print(allTriples)
+        template = JINJA_ENVIRONMENT.get_template('triples.html')
+        self.response.out.write(template.render(d))
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/compute', ComputeTriples)
 ], debug=True)
 
 
